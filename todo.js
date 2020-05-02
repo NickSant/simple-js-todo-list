@@ -58,3 +58,12 @@ var todoList = {
     this.displayTodos();
   },
 };
+
+var handlers ={
+  displayTodos: function() {
+    todoList.displayTodos();
+  },
+  toggleAll: function () {
+    todoList.toggleAll();
+  }
+};
