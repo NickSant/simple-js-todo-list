@@ -1,6 +1,5 @@
 var todoList = {
   todos: [],
-
   displayTodos: function () {
     view.displayTodos();
   },
@@ -72,13 +71,8 @@ var handlers = {
     changeTodoPositionInput.value = "";
     changeTodoTextInput.value = "";
   },
-  deleteTodo: function () {
-    var deleteTodoPositionInput = document.getElementById(
-      "deleteTodoPositionInput"
-    );
-
-    todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
-    deleteTodoPositionInput.value = '';
+  deleteTodo: function (position) {
+    todoList.deleteTodo(position);
   },
   toggleTodo: function () {
     var toggleTodoPositionInput = document.getElementById(
@@ -86,28 +80,47 @@ var handlers = {
     );
 
     todoList.toggleCompleted(toggleTodoPositionInput.value);
-    toggleTodoPositionInput.value = '';
-  }
+    toggleTodoPositionInput.value = "";
+  },
 };
 
 var view = {
-  displayTodos: function(){
-    var todoUl= document.querySelector('ul');
-    todoUl.innerHTML = '';
-    
-    for (let i = 0; i < todoList.todos.length; i++ ){
-      var todoLi = document.createElement('li');
-      var todos = todoList.todos[i]; 
-      
-      
-      var todoTextWithCompletion = '';
-      if(todoList.todos[i].completed === true){
-        todoTextWithCompletion = '(X) ' + todos.todoText;
+  displayTodos: function () {
+    var todoUl = document.querySelector("ul");
+    todoUl.innerHTML = "";
+
+    for (let i = 0; i < todoList.todos.length; i++) {
+      var todoLi = document.createElement("li");
+      var todos = todoList.todos[i];
+
+      var todoTextWithCompletion = "";
+      if (todoList.todos[i].completed === true) {
+        todoTextWithCompletion = "(X) " + todos.todoText;
       } else {
-        todoTextWithCompletion = '( ) ' + todos.todoText;
+        todoTextWithCompletion = "( ) " + todos.todoText;
       }
+      todoLi.id = i;
       todoLi.textContent = todoTextWithCompletion;
+      todoLi.appendChild(this.createDeleteButton());
       todoUl.appendChild(todoLi);
     }
-  }
-}
+  },
+  createDeleteButton: function () {
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "deleteButton";
+    return deleteButton;
+  },
+  setUpEventListeners: function () {
+    var todosUl = document.querySelector("ul");
+    todosUl.addEventListener("click", (event) => {
+      var eventElement = event.target;
+
+      if (eventElement.className === "deleteButton") {
+        handlers.deleteTodo(event.target.parentNode.id);
+      }
+    });
+  },
+};
+
+view.setUpEventListeners();
