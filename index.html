@@ -2,10 +2,60 @@
 <html>
   <head>
     <title>Pratical Javascript</title>
-    
+
+    <link
+      href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Todo List</h1>
+    <div class="todolist">
+      <div class="todolist__main">
+        <div class="todolist__header">
+          <div class="todolist__header--date">
+            <span class="date--day">12</span>
+            <div class="warpper">
+              <span class="date--month">November</span>
+              <span class="date--year">2019</span>
+            </div>
+            <button onclick="handlers.addTodo()" class="add__circle">
+              <i class="ion-plus-circled"></i>
+            </button>
+          </div>
+
+          <input
+            id="addTodoTextInput"
+            class="add__input"
+            type="text"
+            placeholder="Press 'Enter' for push your task.. "
+          />
+        </div>
+        <!-- End Header -->
+
+        <!-- Foot : Showlist Task -->
+        <div class="todolist__result">
+          <ul class="result__list">
+            <!--
+<li class="list__task" id="task-0">
+                        <button class="list__task--check"><i class="ion-ios-checkmark green"></i></button>
+                        <div class="list__task--text">Lorem, ipsum dolor.</div>
+                        <div class="wrapper--left">
+                            <button class="list__task--edit"><i class="ion-android-create"></i></button>
+                            <button class="list__task--del"><i class="ion-android-delete"></i></button>
+                        </div>
+                    </li>
+
+
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--<h1>Todo List</h1>
 
     <div>
       <button onClick="handlers.toggleAll()">Toggle All</button>
@@ -42,6 +92,6 @@
     </div>
 
   <ul></ul>
-  </body>
+  --></body>
   <script src="todo.js"></script>
 </html>
