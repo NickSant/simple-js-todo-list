@@ -89,25 +89,15 @@ var view = {
     todoList.todos.forEach((element, position) => {
       var todoLi = document.createElement("li");
 
-      var todoTextWithCompletion = "";
-      if (element.completed === true) {
-        todoTextWithCompletion = "(X) " + element.todoText;
-      } else {
-        todoTextWithCompletion = "( ) " + element.todoText;
-      }
-      
-
       todoLi.id = position;
-      todoLi.textContent = todoTextWithCompletion;
-      todoLi.appendChild(this.createDeleteButton());
+      todoLi.className = "list__task";
+      todoText = element.todoText;
+
+      const component = this.createComponent(todoText);
+      todoLi.innerHTML = component;
+
       todoUl.appendChild(todoLi);
     });
-  },
-  createDeleteButton: function () {
-    var deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.className = "deleteButton";
-    return deleteButton;
   },
   setUpEventListeners: function () {
     var todosUl = document.querySelector("ul");
@@ -119,9 +109,17 @@ var view = {
       }
     });
   },
+  createComponent: function (todoText) {
+    return `
+              <div class="simple__div">
+                <button class="list__task--check"><i class="ion-ios-checkmark green"></i></button>
+                <div class="list__task--text">${todoText}</div>
+                <div class="wrapper--left">
+                  <button class="deleteButton"><i class="ion-android-delete"></i></button>
+                </div>
+              </div>
+          `;
+  },
 };
 
 view.setUpEventListeners();
-
-//Next features:
-//change from ul to divs, to make little cards.
