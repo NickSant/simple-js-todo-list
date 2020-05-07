@@ -17,7 +17,6 @@ var todoList = {
   deleteTodo: function (position) {
     this.todos.splice(position, 1);
 
-    console.log("The Todo has been deleted!");
     this.displayTodos();
   },
   toggleCompleted: function (position) {
@@ -26,25 +25,23 @@ var todoList = {
     this.displayTodos();
   },
   toggleAll: function () {
-    var totalTodos = this.todos.length;
+    var todos = this.todos;
     var completedTodos = 0;
-    var uncompletedTodos = 0;
-    for (var i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].completed) {
+
+    todos.forEach((element) => {
+      if (element.completed === true) {
         completedTodos++;
-      } else uncompletedTodos++;
-    }
-    if (completedTodos === totalTodos) {
-      for (var i = 0; i < totalTodos; i++) {
-        var todo = this.todos[i];
-        todo.completed = false;
       }
-    } else {
-      for (var i = 0; i < totalTodos; i++) {
-        var todo = this.todos[i];
-        todo.completed = true;
+    });
+
+    todos.forEach((element) => {
+      if (completedTodos === todos.length) {
+        element.completed = false;
+      } else {
+        element.completed = true;
       }
-    }
+    });
+
     this.displayTodos();
   },
 };
@@ -89,21 +86,22 @@ var view = {
     var todoUl = document.querySelector("ul");
     todoUl.innerHTML = "";
 
-    for (let i = 0; i < todoList.todos.length; i++) {
+    todoList.todos.forEach((element, position) => {
       var todoLi = document.createElement("li");
-      var todos = todoList.todos[i];
 
       var todoTextWithCompletion = "";
-      if (todoList.todos[i].completed === true) {
-        todoTextWithCompletion = "(X) " + todos.todoText;
+      if (element.completed === true) {
+        todoTextWithCompletion = "(X) " + element.todoText;
       } else {
-        todoTextWithCompletion = "( ) " + todos.todoText;
+        todoTextWithCompletion = "( ) " + element.todoText;
       }
-      todoLi.id = i;
+      
+
+      todoLi.id = position;
       todoLi.textContent = todoTextWithCompletion;
       todoLi.appendChild(this.createDeleteButton());
       todoUl.appendChild(todoLi);
-    }
+    });
   },
   createDeleteButton: function () {
     var deleteButton = document.createElement("button");
@@ -124,3 +122,6 @@ var view = {
 };
 
 view.setUpEventListeners();
+
+//Next features:
+//change from ul to divs, to make little cards.
