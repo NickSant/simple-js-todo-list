@@ -22,7 +22,7 @@ input[type="text"]:focus {
 
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to right, #11998e, #38ef7d);
+  background: linear-gradient(to right, #281cc1, #ff0066);
 }
 
 li {
@@ -174,7 +174,7 @@ button {
 }
 
 .deleteButton:hover {
-  color: #f78604;
+  color: #ff0000;
   transition-duration: 0.4s;
 }
 
