@@ -114,6 +114,12 @@ var view = {
         todoList.toggleCompleted(listID);
       }
     });
+
+    document.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        handlers.addTodo();
+      }
+    });
   },
   createComponent: function (todoText, position) {
     return `
@@ -137,6 +143,39 @@ var view = {
       }
     });
   },
+  dateConfig: function () {
+    var data = new Date();
+
+    var day = data.getDate();
+    var month = data.getMonth();
+    var year = data.getFullYear();
+
+    var monthsArray = [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outrubro",
+      "Novembro",
+      "Dezembro",
+    ];
+
+    var daySpan = document.querySelector(".date--day");
+    var monthSpan = document.querySelector(".date--month");
+    var yearSpan = document.querySelector(".date--year");
+
+    setTimeout(() => {
+      daySpan.textContent = day;
+      monthSpan.textContent = monthsArray[month];
+      yearSpan.textContent = year;
+    }, 1);
+  },
 };
 
+view.dateConfig();
 view.setUpEventListeners();
