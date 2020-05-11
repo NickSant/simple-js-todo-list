@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pratical Javascript</title>
+
+    <link
+      href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="todolist">
+      <div class="todolist__main">
+        <div class="todolist__header">
+          <div class="todolist__header--date">
+            <span class="date--day">12</span>
+            <div class="warpper">
+              <span class="date--month">November</span>
+              <span class="date--year">2019</span>
+            </div>
+            <button onclick="handlers.addTodo()" class="add__circle">
+              <i class="ion-plus-circled"></i>
+            </button>
+          </div>
+          <div class="todolist__header--bottom">
+            <button>
+              <i class="fa fa-chevron-down"></i>
+            </button>
+            <input
+              id="addTodoTextInput"
+              class="add__input"
+              type="text"
+              placeholder="Digite sua tarefa..."
+            />
+          </div>
+        </div>
+
+        <!-- End Header -->
+
+        <!-- Foot : Showlist Task -->
+        <div class="todolist__result">
+          <ul class="result__list">
+            <!--
+<li class="list__task" id="task-0">
+                        <button class="list__task--check"><i class="ion-ios-checkmark green"></i></button>
+                        <div class="list__task--text">Lorem, ipsum dolor.</div>
+                        <div class="wrapper--left">
+                            <button class="list__task--edit"><i class="ion-android-create"></i></button>
+                            <button class="list__task--del"><i class="ion-android-delete"></i></button>
+                        </div>
+                    </li>
+
+
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--<h1>Todo List</h1>
+
+    <div>
+      <button onClick="handlers.toggleAll()">Toggle All</button>
+    </div>
+
+    <div>
+      <button onclick="handlers.addTodo()">Add</button>
+      <input id="addTodoTextInput" type="text" placeholder="Add a new todo" />
+    </div>
+
+    <div>
+      <button onclick="handlers.changeTodo()">Change</button>
+      <input
+        id="changeTodoTextInput"
+        type="text"
+        placeholder="Write the todo change"
+      />
+      <input
+        id="changeTodoPositionInput"
+        type="number"
+        placeholder="Chose the item"
+      />
+    </div>
+    
+    <div>
+      <button onclick="handlers.toggleTodo()">
+        Toggle Completed
+      </button>
+      <input
+        id="toggleTodoPositionInput"
+        type="number"
+        placeholder="Chose the item"
+      />
+    </div>
+
+  <ul></ul>
+  --></body>
+  <script src="todo.js"></script>
+</html>
