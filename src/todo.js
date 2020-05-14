@@ -4,11 +4,23 @@ var todoList = {
     view.displayTodos();
   },
   addTodo: function (todoText) {
+    const component = view.createComponent(todoText);
+    let todoLi = document.createElement('li');
+    todoLi.innerHTML = component;
+
     this.todos.push({
       todoText: todoText,
       completed: false,
+      component: todoLi,
     });
-    this.displayTodos();
+    
+    todoList.todos.forEach((element, position) => {
+      todoLi.id = position;
+      todoLi.className = "list__task";
+    })
+
+    var todoUl = document.querySelector("ul");
+    todoUl.appendChild(todoLi);
   },
   changeTodo: function (position, NewItem) {
     this.todos[position].todoText = NewItem;
@@ -17,13 +29,15 @@ var todoList = {
   deleteTodo: function (position) {
     this.todos.splice(position, 1);
 
-    this.displayTodos();
+    let li = document.getElementById(position);
+    li.parentNode.removeChild(li);
+    
   },
   toggleCompleted: function (position) {
     var todo = this.todos[position];
     todo.completed = !this.todos[position].completed;
 
-    view.modifyComponent(position);
+    view.singleToggleCompleted(position);
   },
   toggleAll: function () {
     var todos = this.todos;
@@ -42,8 +56,6 @@ var todoList = {
         element.completed = true;
       }
     });
-
-    this.displayTodos();
   },
 };
 
@@ -91,6 +103,16 @@ var view = {
   },
   setUpEventListeners: function () {
     var todosUl = document.querySelector("ul");
+    var headerBottom = document.querySelector(".todolist__header--bottom");
+
+    headerBottom.addEventListener("click", (event) => {
+      var eventI = event.target;
+      var toggleAllButton = eventI.parentNode;
+
+      if (toggleAllButton.className === "toggleAllButton") {
+        handlers.toggleAll();
+      }
+    });
 
     todosUl.addEventListener("click", (event) => {
       var eventI = event.target;
@@ -102,15 +124,13 @@ var view = {
       }
     });
 
-    todosUl.addEventListener("click", (event) => {
+    todosUl.addEventListener("click", (event) => {     
       var eventI = event.target;
       var toggleButton = eventI.parentNode;
       var listID = toggleButton.parentNode.id;
 
       if (
-        toggleButton.className === "list__task--check" ||
-        "list__task--checked"
-      ) {
+        toggleButton.id === "toggleCompleted") {
         todoList.toggleCompleted(listID);
       }
     });
@@ -121,16 +141,16 @@ var view = {
       }
     });
   },
-  createComponent: function (todoText, position) {
+  createComponent: function (todoText) {
     return `
-                <button class="list__task--check"><i class="ion-ios-checkmark green"></i></button>
-                <div id="div${position}" class="list__task--text">${todoText}</div>
+                <button id="toggleCompleted" class="list__task--check"><i class="ion-ios-checkmark green"></i></button>
+                <div class="list__task--text">${todoText}</div>
                 <div class="wrapper--left">
                   <button class="deleteButton"><i class="ion-android-delete"></i></button>
                 </div>
           `;
   },
-  modifyComponent: function (position) {
+  singleToggleCompleted: function (position) {
     var todoList = document.querySelectorAll(".list__task");
 
     todoList.forEach((element) => {
