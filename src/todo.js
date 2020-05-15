@@ -5,33 +5,29 @@ var todoList = {
   },
   addTodo: function (todoText) {
     const component = view.createComponent(todoText);
-    let todoLi = document.createElement('li');
+    let todoLi = document.createElement("li");
     todoLi.innerHTML = component;
+
+    todoLi.className = "list__task";
 
     this.todos.push({
       todoText: todoText,
       completed: false,
       component: todoLi,
     });
-    
+
     todoList.todos.forEach((element, position) => {
       todoLi.id = position;
-      todoLi.className = "list__task";
-    })
-
+    });
+  
     var todoUl = document.querySelector("ul");
     todoUl.appendChild(todoLi);
-  },
-  changeTodo: function (position, NewItem) {
-    this.todos[position].todoText = NewItem;
-    this.displayTodos();
   },
   deleteTodo: function (position) {
     this.todos.splice(position, 1);
 
     let li = document.getElementById(position);
     li.parentNode.removeChild(li);
-    
   },
   toggleCompleted: function (position) {
     var todo = this.todos[position];
@@ -84,23 +80,6 @@ var handlers = {
 };
 
 var view = {
-  displayTodos: function () {
-    var todoUl = document.querySelector("ul");
-    todoUl.innerHTML = "";
-
-    todoList.todos.forEach((element, position) => {
-      var todoLi = document.createElement("li");
-
-      todoLi.id = position;
-      todoLi.className = "list__task";
-      todoText = element.todoText;
-
-      const component = this.createComponent(todoText, position);
-      todoLi.innerHTML = component;
-
-      todoUl.appendChild(todoLi);
-    });
-  },
   setUpEventListeners: function () {
     var todosUl = document.querySelector("ul");
     var headerBottom = document.querySelector(".todolist__header--bottom");
@@ -124,13 +103,12 @@ var view = {
       }
     });
 
-    todosUl.addEventListener("click", (event) => {     
+    todosUl.addEventListener("click", (event) => {
       var eventI = event.target;
       var toggleButton = eventI.parentNode;
       var listID = toggleButton.parentNode.id;
 
-      if (
-        toggleButton.id === "toggleCompleted") {
+      if (toggleButton.id === "toggleCompleted") {
         todoList.toggleCompleted(listID);
       }
     });
